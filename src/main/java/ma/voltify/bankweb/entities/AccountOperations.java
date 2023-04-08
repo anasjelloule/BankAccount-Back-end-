@@ -4,6 +4,8 @@ import java.util.Date;
 
 import enums.OperationsType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +22,7 @@ public class AccountOperations {
     private Long id;
     private Date Date;
     private double amount;
+    @Enumerated(EnumType.STRING)
     private OperationsType type;
     @ManyToOne
     private BankAccount bankAccount;
