@@ -1,4 +1,4 @@
-package entities;
+package ma.voltify.bankweb.entities;
 
 import java.util.Collection;
 
@@ -11,14 +11,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     private String name;
     private String email;
     @OneToMany(mappedBy = "customer")

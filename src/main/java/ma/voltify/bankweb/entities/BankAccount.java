@@ -1,4 +1,4 @@
-package entities;
+package ma.voltify.bankweb.entities;
 
 import java.util.Collection;
 import java.util.Date;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BankAccount {
+public abstract class BankAccount {
     @Id
     private String id;
     private Date createdAt;
@@ -34,7 +34,7 @@ public class BankAccount {
     private String currency;
     @ManyToOne
     private Customer customer;
-    @OneToMany(mappedBy = "BankAccount")
-    private Collection<Accountoperations> Accountoperations;
+    @OneToMany(mappedBy = "bankAccount")
+    private Collection<AccountOperations> Accountoperations;
 
 }

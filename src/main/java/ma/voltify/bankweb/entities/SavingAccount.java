@@ -1,4 +1,4 @@
-package entities;
+package ma.voltify.bankweb.entities;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
