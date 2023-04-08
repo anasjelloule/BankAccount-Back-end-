@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
@@ -30,6 +31,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@ToString
 public abstract class BankAccount {
     @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +41,10 @@ public abstract class BankAccount {
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
     private String currency;
+    @ToString.Exclude
     @ManyToOne
     private Customer customer;
+
     @OneToMany(mappedBy = "bankAccount")
     private Collection<AccountOperations> Accountoperations;
 
