@@ -8,10 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Data
+@Builder(toBuilder = true)
 public class AccountOperations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
