@@ -3,6 +3,7 @@ package ma.voltify.bankweb;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +28,7 @@ public class BankwebApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BankwebApplication.class, args);
+
 	}
 
 	@Bean
@@ -75,6 +77,11 @@ public class BankwebApplication {
 				accountoperationrepository.save(accountOperation);
 
 			});
+			BankAccount bankaccount = bankrepository.findById("30281a6e-47af-4ce6-ab8b-420a9868c28d")
+					.orElse(null);
+			System.out.println(bankaccount);
+
 		};
 	}
+
 }
