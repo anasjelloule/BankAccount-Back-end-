@@ -5,6 +5,7 @@ import java.util.Date;
 import enums.OperationsType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
@@ -15,4 +16,6 @@ public class Accountoperations {
     private Date Date;
     private double amount;
     private OperationsType type;
+    @ManyToOne
+    private BankAccount bankAccount;
 }
