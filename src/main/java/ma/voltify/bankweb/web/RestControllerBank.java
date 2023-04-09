@@ -7,31 +7,34 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import exceptions.BankAccountNotFoundException;
 import lombok.AllArgsConstructor;
 import ma.voltify.bankweb.entities.BankAccount;
-import ma.voltify.bankweb.entities.Customer;
-import ma.voltify.bankweb.repositories.CustomerRepository;
+import ma.voltify.bankweb.repositories.BankRepository;
+import ma.voltify.bankweb.services.BankAccountserviceImpl;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/customers")
+@RequestMapping(value = "/accounts")
 public class RestControllerBank {
-    private CustomerRepository customerrepository;
+    private BankRepository bankrepository;
+    private BankAccountserviceImpl bankaccountservice;
 
-    @GetMapping({ "/", "", "" })
-    public List<Customer> getCustomers() {
-        return customerrepository.findAll();
+    @GetMapping({ "/", "" })
+    public List<BankAccount> getaccounts() {
+        return bankrepository.findAll();
     }
+
+    // @PostMapping({ "/", "" })
+    // public BankAccount saveaccount(@RequestBody ) {
+
+    // return null;
+    // }
 
     @GetMapping({ "/{id}", "/{id}/" })
-
-    public Customer getCustomer(@PathVariable(name = "id") Long id) {
-        return customerrepository.findById(id).orElse(null);
-    }
-
-    @GetMapping({ "/{id}/accounts", "/{id}/accounts/" })
-    public List<BankAccount> getCustomeraccounts(@PathVariable(name = "id") Long id) {
-        System.out.println((List<BankAccount>) customerrepository.findById(id).orElse(null).getBankAccounts());
-        return (List<BankAccount>) customerrepository.findById(id).orElse(null).getBankAccounts();
+    public BankAccount getaccountsid(@PathVariable(name = "id") String id) throws BankAccountNotFoundException {
+        return bankaccountservice.getBankAccount(id);
     }
 }
