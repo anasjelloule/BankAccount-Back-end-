@@ -3,10 +3,15 @@ package ma.voltify.bankweb.entities;
 import java.util.Collection;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import enums.AccountStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,8 +49,9 @@ public abstract class BankAccount {
     @ToString.Exclude
     @ManyToOne
     private Customer customer;
-
-    @OneToMany(mappedBy = "bankAccount")
+    @ToString.Exclude
+    @OneToMany(mappedBy = "bankAccount", fetch = FetchType.EAGER)
+    @JsonProperty(access = Access.WRITE_ONLY)
     private Collection<AccountOperations> Accountoperations;
 
 }

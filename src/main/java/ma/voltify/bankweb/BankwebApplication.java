@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.Transactional;
 
 import enums.AccountStatus;
 import enums.OperationsType;
@@ -24,6 +25,7 @@ import ma.voltify.bankweb.repositories.BankRepository;
 import ma.voltify.bankweb.repositories.CustomerRepository;
 
 @SpringBootApplication
+@Transactional
 public class BankwebApplication {
 
 	public static void main(String[] args) {
@@ -32,6 +34,23 @@ public class BankwebApplication {
 	}
 
 	@Bean
+	CommandLineRunner commandLineRunner(CustomerRepository customerrepository, BankRepository bankrepository,
+			AccountOperationRepository accountoperationrepository) {
+		return args -> {
+			BankAccount bankaccount = bankrepository.findById("3fadeb7a-3cda-42fa-9686-80f9a454cd1b")
+					.orElse(null);
+			System.out.println(bankaccount);
+			// System.out.println("Account Operations");
+			bankaccount.getAccountoperations().forEach(System.out::println);
+			System.out.println("/*******************************************************/");
+			BankAccount bankaccount2 = bankrepository.findById("dce14ab7-6e87-46c5-935a-cb55f042098e")
+					.orElse(null);
+			System.out.println(bankaccount2);
+			bankaccount2.getAccountoperations().forEach(System.out::println);
+		};
+	}
+
+	// @Bean
 	CommandLineRunner start(CustomerRepository customerrepository, BankRepository bankrepository,
 			AccountOperationRepository accountoperationrepository) {
 		return args -> {
@@ -67,19 +86,18 @@ public class BankwebApplication {
 			});
 			// Create Account Operations
 			bankrepository.findAll().forEach(bank -> {
-				AccountOperations accountOperation = AccountOperations.builder()
-						.Date(new Date())
-						.amount(Math.random() * 1200)
-						.type(Math.random() > 0.5 ? OperationsType.CEDIT : OperationsType.DEBIT)
-						.bankAccount(bank)
-						.build();
+				for (int i = 0; i < 10; i++) {
+					AccountOperations accountOperation = AccountOperations.builder()
+							.Date(new Date())
+							.amount(Math.random() * 1200)
+							.type(Math.random() > 0.5 ? OperationsType.CEDIT : OperationsType.DEBIT)
+							.bankAccount(bank)
+							.build();
 
-				accountoperationrepository.save(accountOperation);
+					accountoperationrepository.save(accountOperation);
+				}
 
 			});
-			BankAccount bankaccount = bankrepository.findById("30281a6e-47af-4ce6-ab8b-420a9868c28d")
-					.orElse(null);
-			System.out.println(bankaccount);
 
 		};
 	}

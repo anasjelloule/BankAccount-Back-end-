@@ -18,4 +18,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class CurrentAccount extends BankAccount {
     private double overDraft;
+
+    // public String toString() {
+    // return super.toString() + "Overdraft : " + overDraft;
+    // }
 }

@@ -10,11 +10,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder(toBuilder = true)
 public class AccountOperations {
     @Id
@@ -25,5 +30,6 @@ public class AccountOperations {
     @Enumerated(EnumType.STRING)
     private OperationsType type;
     @ManyToOne
+    @ToString.Exclude
     private BankAccount bankAccount;
 }
