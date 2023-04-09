@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import dtos.CustomerDto;
@@ -85,14 +86,39 @@ public class BankAccountserviceImpl implements BankAccountservice {
     }
 
     @Override
-    public Customer saveCustomer(Customer customer) {
+    public void transfer(String accountIdSrouce, String AccountIdDestinataire, double amount, String description) {
 
-        return null;
     }
 
     @Override
-    public void transfer(String accountIdSrouce, String AccountIdDestinataire, double amount, String description) {
+    public CustomerDto saveCustomer(CustomerDto customerdto) {
+        Customer customer = customerrepository.save(bankmapper.fromCustomerDto(customerdto));
+        return bankmapper.fromCustomer(customer);
+    }
 
+    @Override
+    public CustomerDto getCustomer(long id) throws CustomerNotFoundException {
+        Customer customer = customerrepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+        return bankmapper.fromCustomer(customer);
+    }
+
+    @Override
+    public int deletCustomer(long id) throws CustomerNotFoundException {
+        customerrepository.deleteById(id);
+        return 0;
+    }
+
+    @Override
+    public CustomerDto updatecustomer(long id, CustomerDto customerdto) throws CustomerNotFoundException {
+
+        Customer customer = customerrepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+        BeanUtils.copyProperties(customerdto, customer);
+        customer.setId(id);
+        customerrepository.save(customer);
+        // bankmapper.fromCustomerDto(customerdto)
+        return bankmapper.fromCustomer(customer);
     }
 
 }

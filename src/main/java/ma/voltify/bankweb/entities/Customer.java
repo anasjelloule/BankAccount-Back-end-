@@ -27,6 +27,6 @@ public class Customer {
     private String name;
     private String email;
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
-    @JsonIgnore
+    // @JsonIgnore
     private Collection<BankAccount> bankAccounts;
 }

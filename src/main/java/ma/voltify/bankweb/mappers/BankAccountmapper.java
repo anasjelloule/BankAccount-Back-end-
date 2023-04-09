@@ -17,7 +17,7 @@ public class BankAccountmapper {
 
     public CustomerDto fromCustomer(Customer customer) {
         CustomerDto customerdto = CustomerDto.builder().build();
-        BeanUtils.copyProperties(customerdto, customer);
+        BeanUtils.copyProperties(customer, customerdto);
         return customerdto;
     }
 }

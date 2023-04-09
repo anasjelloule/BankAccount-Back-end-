@@ -10,7 +10,7 @@ import ma.voltify.bankweb.entities.BankAccount;
 import ma.voltify.bankweb.entities.Customer;
 
 public interface BankAccountservice {
-        Customer saveCustomer(Customer customer);
+        CustomerDto saveCustomer(CustomerDto customer);
 
         List<CustomerDto> getCustomerList();
 
@@ -27,5 +27,11 @@ public interface BankAccountservice {
         void credit(String id, double amount, String description);
 
         void transfer(String accountIdSrouce, String AccountIdDestinataire, double amount, String description);
+
+        CustomerDto getCustomer(long id) throws CustomerNotFoundException;
+
+        CustomerDto updatecustomer(long id, CustomerDto customerdto) throws CustomerNotFoundException;
+
+        int deletCustomer(long id) throws CustomerNotFoundException;
 
 }

@@ -2,12 +2,17 @@ package ma.voltify.bankweb.web;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dtos.CustomerDto;
+import exceptions.CustomerNotFoundException;
 import lombok.AllArgsConstructor;
 import ma.voltify.bankweb.entities.BankAccount;
 import ma.voltify.bankweb.entities.Customer;
@@ -26,15 +31,25 @@ public class RestControllerCustomers {
         return bankaccountservice.getCustomerList();
     }
 
-    // @PostMapping({ "/", "" })
-    // public Customer saveCustomer(@RequestBody) {
-    // return customerrepository.findAll();
-    // }
+    @PostMapping({ "/", "" })
+    public CustomerDto saveCustomer(@RequestBody CustomerDto customerdto) {
+        return bankaccountservice.saveCustomer(customerdto);
+    }
+
+    @DeleteMapping({ "/{id}/", "/{id}" })
+    public int deleteCustomer(@PathVariable(name = "id") Long id) throws CustomerNotFoundException {
+        return bankaccountservice.deletCustomer(id);
+    }
+
+    @PutMapping({ "/{id}/", "/{id}" })
+    public CustomerDto updateCustomer(@PathVariable(name = "id") Long id, @RequestBody CustomerDto customerdto)
+            throws CustomerNotFoundException {
+        return bankaccountservice.updatecustomer(id, customerdto);
+    }
 
     @GetMapping({ "/{id}", "/{id}/" })
-
-    public Customer getCustomer(@PathVariable(name = "id") Long id) {
-        return customerrepository.findById(id).orElse(null);
+    public CustomerDto getCustomer(@PathVariable(name = "id") Long id) throws CustomerNotFoundException {
+        return bankaccountservice.getCustomer(id);
     }
 
     @GetMapping({ "/{id}/accounts", "/{id}/accounts/" })
