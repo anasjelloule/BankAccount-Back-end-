@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -15,6 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class SavingAccount extends BankAccount {
     private double interestrate;
 }

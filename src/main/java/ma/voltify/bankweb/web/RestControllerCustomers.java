@@ -15,7 +15,6 @@ import dtos.CustomerDto;
 import exceptions.CustomerNotFoundException;
 import lombok.AllArgsConstructor;
 import ma.voltify.bankweb.entities.BankAccount;
-import ma.voltify.bankweb.entities.Customer;
 import ma.voltify.bankweb.repositories.CustomerRepository;
 import ma.voltify.bankweb.services.BankAccountserviceImpl;
 
@@ -37,14 +36,15 @@ public class RestControllerCustomers {
     }
 
     @DeleteMapping({ "/{id}/", "/{id}" })
-    public int deleteCustomer(@PathVariable(name = "id") Long id) throws CustomerNotFoundException {
-        return bankaccountservice.deletCustomer(id);
+    public void deleteCustomer(@PathVariable(name = "id") Long id) throws CustomerNotFoundException {
+        bankaccountservice.deletCustomer(id);
     }
 
     @PutMapping({ "/{id}/", "/{id}" })
     public CustomerDto updateCustomer(@PathVariable(name = "id") Long id, @RequestBody CustomerDto customerdto)
             throws CustomerNotFoundException {
-        return bankaccountservice.updatecustomer(id, customerdto);
+        customerdto.setId(id);
+        return bankaccountservice.updatecustomer(customerdto);
     }
 
     @GetMapping({ "/{id}", "/{id}/" })

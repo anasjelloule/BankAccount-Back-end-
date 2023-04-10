@@ -8,27 +8,32 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.SpringVersion;
 import org.springframework.transaction.annotation.Transactional;
-
+import dtos.CustomerDto;
 import enums.AccountStatus;
 import enums.OperationsType;
 import ma.voltify.bankweb.entities.AccountOperations;
 import ma.voltify.bankweb.entities.CurrentAccount;
 import ma.voltify.bankweb.entities.Customer;
 import ma.voltify.bankweb.entities.SavingAccount;
+import ma.voltify.bankweb.mappers.BankAccountmapper;
 import ma.voltify.bankweb.repositories.AccountOperationRepository;
 import ma.voltify.bankweb.repositories.BankRepository;
 import ma.voltify.bankweb.repositories.CustomerRepository;
+import ma.voltify.bankweb.services.BankAccountserviceImpl;
+// import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 // @ComponentScan(basePackages = { "mappers" })
+// @EnableSwagger2
+// @EnableWebMvc
 @Transactional
 public class BankwebApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BankwebApplication.class, args);
-
+		System.out.println("Version" + SpringVersion.getVersion());
 	}
 
 	@Bean
@@ -51,19 +56,20 @@ public class BankwebApplication {
 	}
 
 	// @Bean
-	CommandLineRunner start(CustomerRepository customerrepository, BankRepository bankrepository,
-			AccountOperationRepository accountoperationrepository) {
+	CommandLineRunner start(BankAccountserviceImpl bankservice, BankRepository bankrepository,
+			AccountOperationRepository accountoperationrepository, BankAccountmapper bankmapper) {
 		return args -> {
 			// Create Customer
 			Stream.of("Anas", "Ali", "Hamza", "Khalid").forEach(name -> {
-				Customer customer = Customer.builder()
+				CustomerDto customerdto = CustomerDto.builder()
 						.name(name)
 						.email(name + "@gmail.com")
 						.build();
-				customerrepository.save(customer);
+				bankservice.saveCustomer(customerdto);
 			});
 			// Create Current Account & Saving Account both for each customer
-			customerrepository.findAll().forEach(cust -> {
+			bankservice.getCustomerList().forEach(customer -> {
+				Customer cust = bankmapper.fromCustomerDto(customer);
 				// CurrentAccount
 				CurrentAccount currentaccount = CurrentAccount.builder().overDraft(9000).build();
 				currentaccount.setCurrency("DHs");

@@ -12,8 +12,6 @@ import lombok.AllArgsConstructor;
 import ma.voltify.bankweb.entities.BankAccount;
 import ma.voltify.bankweb.repositories.BankRepository;
 import ma.voltify.bankweb.services.BankAccountserviceImpl;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @AllArgsConstructor

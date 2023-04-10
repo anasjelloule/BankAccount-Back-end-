@@ -7,7 +7,6 @@ import exceptions.BankAccountNotFoundException;
 
 import exceptions.CustomerNotFoundException;
 import ma.voltify.bankweb.entities.BankAccount;
-import ma.voltify.bankweb.entities.Customer;
 
 public interface BankAccountservice {
         CustomerDto saveCustomer(CustomerDto customer);
@@ -30,8 +29,13 @@ public interface BankAccountservice {
 
         CustomerDto getCustomer(long id) throws CustomerNotFoundException;
 
-        CustomerDto updatecustomer(long id, CustomerDto customerdto) throws CustomerNotFoundException;
+        List<BankAccount> getcustomerBankAccounts(long id) throws CustomerNotFoundException;
 
-        int deletCustomer(long id) throws CustomerNotFoundException;
+        // CustomerDto updatecustomer(long id, CustomerDto customerdto) throws
+        // CustomerNotFoundException;
+
+        CustomerDto updatecustomer(CustomerDto customerdto) throws CustomerNotFoundException;
+
+        void deletCustomer(long id) throws CustomerNotFoundException;
 
 }

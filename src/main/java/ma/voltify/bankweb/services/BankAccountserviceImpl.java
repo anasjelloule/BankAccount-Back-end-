@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import dtos.CustomerDto;
@@ -52,13 +51,13 @@ public class BankAccountserviceImpl implements BankAccountservice {
     }
 
     @Override
-    public BankAccount saveCurrentBankAccount(double Initialebalance, double overDraft, long customerId)
+    public CurrentAccount saveCurrentBankAccount(double Initialebalance, double overDraft, long customerId)
             throws CustomerNotFoundException {
 
         Customer customer = customerrepository.findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found: " + customerId));
 
-        BankAccount bankaccount = CurrentAccount.builder().overDraft(overDraft).build();
+        CurrentAccount bankaccount = CurrentAccount.builder().overDraft(overDraft).build();
         bankaccount.setCreatedAt(new Date());
         bankaccount.setCustomer(customer);
         bankaccount.setBalance(Initialebalance);
@@ -69,13 +68,13 @@ public class BankAccountserviceImpl implements BankAccountservice {
     }
 
     @Override
-    public BankAccount saveSavingBankAccount(double Initialebalance, double interestrate, long customerId)
+    public SavingAccount saveSavingBankAccount(double Initialebalance, double interestrate, long customerId)
             throws CustomerNotFoundException {
 
         Customer customer = customerrepository.findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found: " + customerId));
 
-        BankAccount bankaccount = SavingAccount.builder().interestrate(interestrate).build();
+        SavingAccount bankaccount = SavingAccount.builder().interestrate(interestrate).build();
         bankaccount.setCreatedAt(new Date());
         bankaccount.setCustomer(customer);
         bankaccount.setBalance(Initialebalance);
@@ -104,21 +103,28 @@ public class BankAccountserviceImpl implements BankAccountservice {
     }
 
     @Override
-    public int deletCustomer(long id) throws CustomerNotFoundException {
+    public void deletCustomer(long id) throws CustomerNotFoundException {
         customerrepository.deleteById(id);
-        return 0;
     }
 
     @Override
-    public CustomerDto updatecustomer(long id, CustomerDto customerdto) throws CustomerNotFoundException {
+    public CustomerDto updatecustomer(CustomerDto customerdto) throws CustomerNotFoundException {
 
-        Customer customer = customerrepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
-        BeanUtils.copyProperties(customerdto, customer);
-        customer.setId(id);
-        customerrepository.save(customer);
-        // bankmapper.fromCustomerDto(customerdto)
+        // Customer customer = customerrepository.findById(id)
+        // .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+
+        // BeanUtils.copyProperties(customerdto, customer);
+        // customer.setId(id);
+        Customer customer = bankmapper.fromCustomerDto(customerdto);
+
+        customer = customerrepository.save(customer);
+
         return bankmapper.fromCustomer(customer);
+    }
+
+    @Override
+    public List<BankAccount> getcustomerBankAccounts(long id) throws CustomerNotFoundException {
+        return null;
     }
 
 }
