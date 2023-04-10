@@ -2,6 +2,8 @@ package ma.voltify.bankweb.entities;
 
 import java.util.Collection;
 
+import jakarta.persistence.CascadeType;
+
 // import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -10,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PreRemove;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +29,12 @@ public class Customer {
     private Long id;
     private String name;
     private String email;
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     // @JsonIgnore
     private Collection<BankAccount> bankAccounts;
+
+    @PreRemove
+    private void removecustomerFromBankAccounts() {
+        bankAccounts.forEach(bankAccount -> bankAccount.setCustomer(null));
+    }
 }

@@ -34,6 +34,8 @@ public class BankAccountmapper {
     public SavingDto fromSaving(SavingAccount saving) {
         SavingDto savingDto = SavingDto.builder().build();
         BeanUtils.copyProperties(saving, savingDto);
+        if (saving.getCustomer() != null)
+            savingDto.setCustomer(fromCustomer(saving.getCustomer()));
         return savingDto;
     }
 
@@ -46,6 +48,8 @@ public class BankAccountmapper {
     public CurrentDto fromCurrent(CurrentAccount current) {
         CurrentDto currentDto = CurrentDto.builder().build();
         BeanUtils.copyProperties(current, currentDto);
+        if (current.getCustomer() != null)
+            currentDto.setCustomer(fromCustomer(current.getCustomer()));
         return currentDto;
     }
 }
