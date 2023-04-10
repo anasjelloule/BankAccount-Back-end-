@@ -1,6 +1,6 @@
 package ma.voltify.bankweb.entities;
 
-import java.util.Collection;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 
@@ -31,7 +31,7 @@ public class Customer {
     private String email;
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     // @JsonIgnore
-    private Collection<BankAccount> bankAccounts;
+    private List<BankAccount> bankAccounts;
 
     @PreRemove
     private void removecustomerFromBankAccounts() {

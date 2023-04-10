@@ -2,7 +2,11 @@ package ma.voltify.bankweb.entities;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import enums.OperationsType;
+import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,12 +25,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class AccountOperations {
+public class AccountOperation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
     private Date Date;
     private double amount;
+    private String description;
     @Enumerated(EnumType.STRING)
     private OperationsType type;
     @ManyToOne

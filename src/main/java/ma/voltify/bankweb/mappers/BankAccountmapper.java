@@ -1,11 +1,16 @@
 package ma.voltify.bankweb.mappers;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import dtos.CurrentDto;
 import dtos.CustomerDto;
+import dtos.OperationDto;
 import dtos.SavingDto;
+import jakarta.persistence.EntityManager;
+import ma.voltify.bankweb.entities.AccountOperation;
+import ma.voltify.bankweb.entities.BankAccount;
 import ma.voltify.bankweb.entities.CurrentAccount;
 import ma.voltify.bankweb.entities.Customer;
 import ma.voltify.bankweb.entities.SavingAccount;
@@ -51,5 +56,28 @@ public class BankAccountmapper {
         if (current.getCustomer() != null)
             currentDto.setCustomer(fromCustomer(current.getCustomer()));
         return currentDto;
+    }
+
+    public AccountOperation fromOperationDto(CurrentDto operationdto) {
+        AccountOperation operation = AccountOperation.builder().build();
+        BeanUtils.copyProperties(operationdto, operation);
+        return operation;
+    }
+
+    public OperationDto fromOperation(AccountOperation operation) {
+        OperationDto operationdto = OperationDto.builder().build();
+        BeanUtils.copyProperties(operation, operationdto);
+        BankAccount bankacc = (BankAccount) Hibernate.unproxy(operation.getBankAccount());
+        if (bankacc != null) {
+            if (bankacc instanceof CurrentAccount) {
+                operationdto.setBankDto(fromCurrent((CurrentAccount) bankacc));
+
+            }
+            if (bankacc instanceof SavingAccount) {
+                operationdto.setBankDto(fromSaving((SavingAccount) bankacc));
+            }
+        }
+        operationdto.setBankId(bankacc.getId());
+        return operationdto;
     }
 }

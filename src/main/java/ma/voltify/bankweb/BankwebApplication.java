@@ -8,12 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.SpringVersion;
 import org.springframework.transaction.annotation.Transactional;
 import dtos.CustomerDto;
 import enums.AccountStatus;
 import enums.OperationsType;
-import ma.voltify.bankweb.entities.AccountOperations;
+import ma.voltify.bankweb.entities.AccountOperation;
 import ma.voltify.bankweb.entities.CurrentAccount;
 import ma.voltify.bankweb.entities.Customer;
 import ma.voltify.bankweb.entities.SavingAccount;
@@ -28,12 +27,14 @@ import ma.voltify.bankweb.services.BankAccountserviceImpl;
 // @ComponentScan(basePackages = { "mappers" })
 // @EnableSwagger2
 // @EnableWebMvc
+// @OpenAPIDefinition(info = @Info(title = "Employees API", version = "2.0",
+// description = "Employees Information"))
 @Transactional
 public class BankwebApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BankwebApplication.class, args);
-		System.out.println("Version" + SpringVersion.getVersion());
+		System.out.println("Version");
 	}
 
 	@Bean
@@ -60,7 +61,7 @@ public class BankwebApplication {
 			AccountOperationRepository accountoperationrepository, BankAccountmapper bankmapper) {
 		return args -> {
 			// Create Customer
-			Stream.of("Anas", "Ali", "Hamza", "Khalid").forEach(name -> {
+			Stream.of("Anas", "Ali", "Hamza", "Khalid", "Fati", "Ayoub", "Wissal").forEach(name -> {
 				CustomerDto customerdto = CustomerDto.builder()
 						.name(name)
 						.email(name + "@gmail.com")
@@ -93,7 +94,7 @@ public class BankwebApplication {
 			// Create Account Operations
 			bankrepository.findAll().forEach(bank -> {
 				for (int i = 0; i < 10; i++) {
-					AccountOperations accountOperation = AccountOperations.builder()
+					AccountOperation accountOperation = AccountOperation.builder()
 							.Date(new Date())
 							.amount(Math.random() * 1200)
 							.type(Math.random() > 0.5 ? OperationsType.CEDIT : OperationsType.DEBIT)
