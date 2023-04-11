@@ -2,6 +2,7 @@ package ma.voltify.bankweb.web;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,22 +16,20 @@ import dtos.BankDto;
 import dtos.CustomerDto;
 import dtos.OperationDto;
 import exceptions.CustomerNotFoundException;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import ma.voltify.bankweb.entities.BankAccount;
-import ma.voltify.bankweb.repositories.CustomerRepository;
-import ma.voltify.bankweb.services.BankAccountservice;
 import ma.voltify.bankweb.services.BankAccountserviceImpl;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping({ "/customers", "/customers/" })
 public class RestControllerCustomers {
-    private CustomerRepository customerrepository;
     private BankAccountserviceImpl bankaccountservice;
 
     @GetMapping
-    public List<CustomerDto> getCustomers() {
-        return bankaccountservice.getCustomerList();
+    public ResponseEntity<List<CustomerDto>> getCustomers(HttpServletResponse response) {
+        System.out.println(response.getStatus());
+        return ResponseEntity.status(200).body(bankaccountservice.getCustomerList());
     }
 
     @PostMapping
