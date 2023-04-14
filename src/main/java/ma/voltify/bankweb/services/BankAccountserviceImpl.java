@@ -14,7 +14,7 @@ import dtos.OperationDto;
 import dtos.SavingDto;
 import enums.AccountStatus;
 import enums.OperationsType;
-import exceptions.BalanceNotsuff;
+import exceptions.BalanceNotsuffException;
 import exceptions.BankAccountNotFoundException;
 import exceptions.CustomerNotFoundException;
 import lombok.AllArgsConstructor;
@@ -46,14 +46,16 @@ public class BankAccountserviceImpl implements BankAccountservice {
                 .type(OperationsType.CEDIT)
                 .bankAccount(bankaccount)
                 .build();
+        accountoperationrepository.save(accoperation);
+        // bankaccount.setAccountoperations(null);
     }
 
     @Override
     public void debit(String id, double amount, String description)
-            throws BankAccountNotFoundException, BalanceNotsuff {
+            throws BankAccountNotFoundException, BalanceNotsuffException {
         BankAccount bankaccount = getBankAccount(id);
         if (bankaccount.getBalance() <= 0)
-            throw new BalanceNotsuff("Balance not sufficient");
+            throw new BalanceNotsuffException("Balance not sufficient");
         bankaccount.setBalance(bankaccount.getBalance() - amount);
 
         AccountOperation accoperation = AccountOperation.builder()
@@ -68,7 +70,7 @@ public class BankAccountserviceImpl implements BankAccountservice {
 
     @Override
     public void transfer(String accountIdSrouce, String AccountIdDestinataire, double amount, String description)
-            throws BankAccountNotFoundException, BalanceNotsuff {
+            throws BankAccountNotFoundException, BalanceNotsuffException {
         debit(accountIdSrouce, amount, description);
         credit(AccountIdDestinataire, amount, description);
     }

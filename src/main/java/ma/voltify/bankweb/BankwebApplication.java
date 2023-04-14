@@ -12,18 +12,26 @@ import org.springframework.transaction.annotation.Transactional;
 import dtos.CustomerDto;
 import enums.AccountStatus;
 import enums.OperationsType;
+import exceptions.RoleNotFoundException;
+import exceptions.UserNotFoundException;
 import ma.voltify.bankweb.entities.AccountOperation;
+import ma.voltify.bankweb.entities.AppRole;
+import ma.voltify.bankweb.entities.AppUser;
 import ma.voltify.bankweb.entities.CurrentAccount;
 import ma.voltify.bankweb.entities.Customer;
 import ma.voltify.bankweb.entities.SavingAccount;
 import ma.voltify.bankweb.mappers.BankAccountmapper;
 import ma.voltify.bankweb.repositories.AccountOperationRepository;
+import ma.voltify.bankweb.repositories.AppRoleRepository;
+import ma.voltify.bankweb.repositories.AppUserRepository;
 import ma.voltify.bankweb.repositories.BankRepository;
 import ma.voltify.bankweb.repositories.CustomerRepository;
+import ma.voltify.bankweb.services.AccountUserService;
 import ma.voltify.bankweb.services.BankAccountserviceImpl;
 // import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
+
 // @ComponentScan(basePackages = { "mappers" })
 // @EnableSwagger2
 // @EnableWebMvc
@@ -37,7 +45,56 @@ public class BankwebApplication {
 		System.out.println("Version");
 	}
 
-	@Bean
+	// @Bean
+	CommandLineRunner commandLineRunner2(AccountUserService userimpl) {
+		return args -> {
+
+			// fill Roles in the database
+			// userimpl.addRole(AppRole.builder().rolename("USER").build());
+			// userimpl.addRole(AppRole.builder().rolename("ADMIN").build());
+
+			// userimpl.addRole(AppRole.builder().rolename("PRODUCT_MANAGER").build());
+			// userimpl.addRole(AppRole.builder().rolename("CUSTOMER_MANAGER").build());
+			// userimpl.addRole(AppRole.builder().rolename("BILL_MANAGER").build());
+			// userimpl.addRole(AppRole.builder().rolename("CUSTOMER").build());
+
+			// fill Users in the database
+
+			// AppUser appuser = AppUser.builder()
+			// .username("ANAS").password("1234").build();
+			// userimpl.addNewUser(appuser);
+			// userimpl.addNewUser(AppUser.builder()
+			// .username("HAMZA")
+			// .password("1234")
+			// // .appRoles()
+			// .build());
+			// userimpl.addNewUser(AppUser.builder()
+			// .username("ALI")
+			// .password("1234")
+			// // .appRoles()
+			// .build());
+			// userimpl.addNewUser(AppUser.builder()
+			// .username("FATI")
+			// .password("1234")
+			// // .approles()
+			// .build());
+
+			// Add roles to users
+			// userimpl.listusers().forEach(user -> {
+			// try {
+			// // userimpl.addRoleToUser(user.getUsername(), "USER");
+			// } catch (UserNotFoundException | RoleNotFoundException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
+			// });
+			userimpl.addRoleToUser("ANAS", "ADMIN");
+			userimpl.addRoleToUser("ALI", "PRODUCT_MANAGER");
+			userimpl.addRoleToUser("HAMZA", "CUSTOMER_MANAGER");
+		};
+	}
+
+	// @Bean
 	CommandLineRunner commandLineRunner(CustomerRepository customerrepository, BankRepository bankrepository,
 			AccountOperationRepository accountoperationrepository) {
 		return args -> {

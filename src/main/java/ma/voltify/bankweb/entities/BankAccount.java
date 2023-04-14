@@ -46,7 +46,7 @@ public abstract class BankAccount {
     private Customer customer;
     @ToString.Exclude
     @OneToMany(mappedBy = "bankAccount", fetch = FetchType.EAGER)
-    @JsonProperty(access = Access.WRITE_ONLY)
+    // @JsonProperty(access = Access.WRITE_ONLY)
     private Collection<AccountOperation> Accountoperations;
 
 }

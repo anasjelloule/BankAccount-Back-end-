@@ -7,7 +7,7 @@ import dtos.CurrentDto;
 import dtos.CustomerDto;
 import dtos.OperationDto;
 import dtos.SavingDto;
-import exceptions.BalanceNotsuff;
+import exceptions.BalanceNotsuffException;
 import exceptions.BankAccountNotFoundException;
 
 import exceptions.CustomerNotFoundException;
@@ -37,12 +37,14 @@ public interface BankAccountservice {
 
         // List<BankDto> getBankAccountlistnocustomer();
 
-        void debit(String id, double amount, String description) throws BankAccountNotFoundException, BalanceNotsuff;
+        void debit(String id, double amount, String description)
+                        throws BankAccountNotFoundException, BalanceNotsuffException;
 
-        void credit(String id, double amount, String description) throws BalanceNotsuff, BankAccountNotFoundException;
+        void credit(String id, double amount, String description)
+                        throws BalanceNotsuffException, BankAccountNotFoundException;
 
         void transfer(String accountIdSrouce, String AccountIdDestinataire, double amount, String description)
-                        throws BankAccountNotFoundException, BalanceNotsuff;
+                        throws BankAccountNotFoundException, BalanceNotsuffException;
 
         List<OperationDto> AccountHistory(String id) throws CustomerNotFoundException, BankAccountNotFoundException;
 
