@@ -41,7 +41,7 @@ public class SecurityConfig {
         // http.csrf().disable();
         // http.headers().frameOptions().disable();
         http.headers(headers -> headers.frameOptions().disable());
-        http.authorizeHttpRequests().requestMatchers("/accounts/**").hasRole("ADMIN");
+        http.authorizeHttpRequests().requestMatchers("/accounts/**").permitAll();// .hasRole("ADMIN");
         http.authorizeHttpRequests().requestMatchers("/customers/**").hasAnyRole("ADMIN", "USER");
         http.authorizeHttpRequests().requestMatchers("/users/**").hasRole("ADMIN");
         // .hasRole("ADMIN");

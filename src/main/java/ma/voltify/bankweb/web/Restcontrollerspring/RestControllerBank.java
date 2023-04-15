@@ -1,7 +1,8 @@
-package ma.voltify.bankweb.web;
+package ma.voltify.bankweb.web.Restcontrollerspring;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import dtos.OperationDto;
 import dtos.SavingDto;
 import exceptions.BankAccountNotFoundException;
 import exceptions.CustomerNotFoundException;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import ma.voltify.bankweb.services.BankAccountserviceImpl;
 
@@ -26,8 +28,8 @@ public class RestControllerBank {
     private BankAccountserviceImpl bankaccountservice;
 
     @GetMapping({ "/", "" })
-    public List<BankDto> getaccounts() {
-        return bankaccountservice.getBankAccountlist();
+    public ResponseEntity<List<BankDto>> getaccounts() {
+        return ResponseEntity.status(403).body(bankaccountservice.getBankAccountlist());
     }
 
     @PostMapping({ "/", "" })

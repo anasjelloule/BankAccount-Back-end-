@@ -12,23 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 import dtos.CustomerDto;
 import enums.AccountStatus;
 import enums.OperationsType;
-import exceptions.RoleNotFoundException;
-import exceptions.UserNotFoundException;
+import jakarta.xml.ws.Endpoint;
 import ma.voltify.bankweb.entities.AccountOperation;
-import ma.voltify.bankweb.entities.AppRole;
-import ma.voltify.bankweb.entities.AppUser;
 import ma.voltify.bankweb.entities.CurrentAccount;
 import ma.voltify.bankweb.entities.Customer;
 import ma.voltify.bankweb.entities.SavingAccount;
 import ma.voltify.bankweb.mappers.BankAccountmapper;
 import ma.voltify.bankweb.repositories.AccountOperationRepository;
-import ma.voltify.bankweb.repositories.AppRoleRepository;
-import ma.voltify.bankweb.repositories.AppUserRepository;
 import ma.voltify.bankweb.repositories.BankRepository;
 import ma.voltify.bankweb.repositories.CustomerRepository;
 import ma.voltify.bankweb.services.AccountUserService;
 import ma.voltify.bankweb.services.BankAccountserviceImpl;
-// import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import ma.voltify.bankweb.web.soap.Bankservicesoap;
 
 @SpringBootApplication
 
@@ -42,7 +37,16 @@ public class BankwebApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BankwebApplication.class, args);
-		System.out.println("Version");
+
+	}
+
+	@Bean
+	CommandLineRunner commandLineRunner3(Bankservicesoap bankservicesoap) {
+		return args -> {
+			Endpoint.publish("http://0.0.0.0:8088/", bankservicesoap);
+			// bankservicesoap.getListBankDto();
+			System.out.println("Web service running on port 8089");
+		};
 	}
 
 	// @Bean

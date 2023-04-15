@@ -1,4 +1,4 @@
-package ma.voltify.bankweb.web;
+package ma.voltify.bankweb.web.Restcontrollerspring;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
