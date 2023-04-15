@@ -38,31 +38,31 @@ public class RestControllerCustomers {
     }
 
     @DeleteMapping({ "/{id}/", "/{id}" })
-    public void deleteCustomer(@PathVariable(name = "id") Long id) throws CustomerNotFoundException {
+    public void deleteCustomer(@PathVariable Long id) throws CustomerNotFoundException {
         bankaccountservice.deletCustomer(id);
     }
 
     @PutMapping({ "/{id}/", "/{id}" })
-    public CustomerDto updateCustomer(@PathVariable(name = "id") Long id, @RequestBody CustomerDto customerdto)
+    public CustomerDto updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customerdto)
             throws CustomerNotFoundException {
         customerdto.setId(id);
         return bankaccountservice.updatecustomer(customerdto);
     }
 
     @GetMapping({ "/{id}", "/{id}/" })
-    public CustomerDto getCustomer(@PathVariable(name = "id") Long id) throws CustomerNotFoundException {
+    public CustomerDto getCustomer(@PathVariable Long id) throws CustomerNotFoundException {
         return bankaccountservice.getCustomer(id);
     }
 
     @GetMapping({ "/{id}/accounts", "/{id}/accounts/" })
-    public List<BankDto> getCustomeraccounts(@PathVariable(name = "id") Long id) throws CustomerNotFoundException {
+    public List<BankDto> getCustomeraccounts(@PathVariable Long id) throws CustomerNotFoundException {
         // System.out.println((List<BankAccount>)
         // customerrepository.findById(id).orElse(null).getBankAccounts());
         return bankaccountservice.getcustomerBankAccounts(id);
     }
 
     @GetMapping({ "/{id}/operations", "/{id}/operations/" })
-    public List<OperationDto> getOperations(@PathVariable(name = "id") Long id) throws CustomerNotFoundException {
+    public List<OperationDto> getOperations(@PathVariable Long id) throws CustomerNotFoundException {
         // System.out.println((List<BankAccount>)
         // customerrepository.findById(id).orElse(null).getBankAccounts());
         return bankaccountservice.getOperations(id);

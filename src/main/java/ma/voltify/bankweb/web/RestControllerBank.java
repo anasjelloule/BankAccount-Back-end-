@@ -45,12 +45,12 @@ public class RestControllerBank {
     }
 
     @GetMapping({ "/{id}", "/{id}/" })
-    public BankDto getaccountsid(@PathVariable(name = "id") String id) throws BankAccountNotFoundException {
+    public BankDto getaccountsid(@PathVariable String id) throws BankAccountNotFoundException {
         return bankaccountservice.getBankAccountDto(id);
     }
 
     @GetMapping({ "/{id}/operations", "/{id}/operations/" })
-    public List<OperationDto> getOperations(@PathVariable(name = "id") String id)
+    public List<OperationDto> getOperations(@PathVariable String id)
             throws CustomerNotFoundException, BankAccountNotFoundException {
         return bankaccountservice.AccountHistory(id);
     }

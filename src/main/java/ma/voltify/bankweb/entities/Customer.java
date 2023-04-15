@@ -35,6 +35,6 @@ public class Customer {
 
     @PreRemove
     private void removecustomerFromBankAccounts() {
-        bankAccounts.forEach(bankAccount -> bankAccount.setCustomer(null));
+      //  bankAccounts.forEach(bankAccount -> bankAccount.setCustomer(null));
     }
 }

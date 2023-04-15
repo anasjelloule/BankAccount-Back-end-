@@ -30,7 +30,7 @@ public class RestControllerUser {
     @GetMapping({ "/{username}", "/{username}/" })
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<AppUser> getuserdetail(HttpServletResponse response,
-            @PathVariable(name = "username") String username)
+            @PathVariable String username)
             throws UserNotFoundException {
         return ResponseEntity.status(200).body(userimpl.loadUserByUserName(username));
     }

@@ -35,7 +35,7 @@ public class SecurityConfig {
     private PasswordEncoder passwordencoder;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.formLogin(withDefaults());
         // http.anonymous();
         // http.csrf().disable();
@@ -80,7 +80,7 @@ public class SecurityConfig {
     // }
 
     @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+    InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         System.out.println("Called inMemoryUserDetailsManager");
         return new InMemoryUserDetailsManager(
                 User.withUsername("Anas").password(passwordencoder.encode("1234")).roles("USER").build(),
@@ -88,7 +88,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
+    WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**",
                 "/webjars/**");
     }
