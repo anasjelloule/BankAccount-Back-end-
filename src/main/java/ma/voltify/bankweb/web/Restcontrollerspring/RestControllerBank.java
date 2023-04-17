@@ -29,7 +29,7 @@ public class RestControllerBank {
 
     @GetMapping({ "/", "" })
     public ResponseEntity<List<BankDto>> getaccounts() {
-        return ResponseEntity.status(403).body(bankaccountservice.getBankAccountlist());
+        return ResponseEntity.status(200).body(bankaccountservice.getBankAccountlist());
     }
 
     @PostMapping({ "/", "" })

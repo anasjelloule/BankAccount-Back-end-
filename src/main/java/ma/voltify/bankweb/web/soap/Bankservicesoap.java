@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import dtos.BankDto;
+import dtos.CustomerDto;
 import exceptions.BankAccountNotFoundException;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
@@ -33,6 +34,7 @@ public class Bankservicesoap {
     }
 
     @WebMethod(operationName = "getListBankDto")
+
     public List<BankDto> getListBankDto() {
         // bankaccountservice.getBankAccountlist().forEach(acc ->
         // System.out.println(acc.getCustomer()));
@@ -42,6 +44,11 @@ public class Bankservicesoap {
         // bankdto.setCurrency("MAD");
         // bankdto.setStatus(AccountStatus.ACTIVATED);
         // return bankdto;
+    }
+
+    @WebMethod(operationName = "getListCustomerDto")
+    public List<CustomerDto> getListCustomerDto() {
+        return bankaccountservice.getCustomerList();
     }
 
     @WebMethod

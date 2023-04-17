@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,6 +24,7 @@ import ma.voltify.bankweb.repositories.BankRepository;
 import ma.voltify.bankweb.repositories.CustomerRepository;
 import ma.voltify.bankweb.services.AccountUserService;
 import ma.voltify.bankweb.services.BankAccountserviceImpl;
+import ma.voltify.bankweb.web.RestFuljaxws.BankserviceRestJaxRSApi;
 import ma.voltify.bankweb.web.soap.Bankservicesoap;
 
 @SpringBootApplication
@@ -43,9 +45,9 @@ public class BankwebApplication {
 	@Bean
 	CommandLineRunner commandLineRunner3(Bankservicesoap bankservicesoap) {
 		return args -> {
-			Endpoint.publish("http://0.0.0.0:8088/", bankservicesoap);
+			// Endpoint.publish("http://0.0.0.0:8088/", bankservicesoap);
 			// bankservicesoap.getListBankDto();
-			System.out.println("Web service running on port 8089");
+			// System.out.println("Web service running on port 8088");
 		};
 	}
 

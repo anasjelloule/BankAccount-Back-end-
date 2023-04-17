@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder(toBuilder = true)
-@XmlRootElement
 @NoArgsConstructor
 @AllArgsConstructor
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ResultDto")
+@XmlType(name = "CustomerDto")
 public class CustomerDto {
     private Long id;
     private String name;

@@ -23,7 +23,7 @@ public class BankDto {
     private double balance;
     private AccountStatus status;
     private String currency;
-    @XmlElement(name = "ResultDto")
+    @XmlElement(name = "CustomerDto")
     // @WebResult(name = "ADDRTO")
     private CustomerDto customer;
 }

@@ -27,7 +27,7 @@ import java.util.Collection;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
+// @EnableMethodSecurity(prePostEnabled = true)
 @AllArgsConstructor
 @Data
 public class SecurityConfig {
@@ -36,17 +36,21 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.formLogin(withDefaults());
+        // http.formLogin(withDefaults());
         // http.anonymous();
         // http.csrf().disable();
         // http.headers().frameOptions().disable();
-        http.headers(headers -> headers.frameOptions().disable());
-        http.authorizeHttpRequests().requestMatchers("/accounts/**").permitAll();// .hasRole("ADMIN");
-        http.authorizeHttpRequests().requestMatchers("/customers/**").hasAnyRole("ADMIN", "USER");
-        http.authorizeHttpRequests().requestMatchers("/users/**").hasRole("ADMIN");
+        // http.headers(headers -> headers.frameOptions().disable());
+        // http.authorizeHttpRequests().requestMatchers("/accounts/**").permitAll();//
+        // .hasRole("ADMIN");
+        // http.authorizeHttpRequests().requestMatchers("/api/**").permitAll();//
+        // .hasRole("ADMIN");
+        // http.authorizeHttpRequests().requestMatchers("/customers/**").hasAnyRole("ADMIN",
+        // "USER");
+        // http.authorizeHttpRequests().requestMatchers("/users/**").hasRole("ADMIN");
         // .hasRole("ADMIN");
         // http.authorizeHttpRequests().anyRequest().authenticated();
-        http.authorizeHttpRequests(request -> request.anyRequest().authenticated());
+        http.authorizeHttpRequests(request -> request.anyRequest().permitAll());
         // http.exceptionHandling(handling -> handling.accessDeniedPage("/authorized"));
         return http.build();
     }
