@@ -12,13 +12,14 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import ma.voltify.bankweb.services.BankAccountserviceImpl;
 
 // @Data
 // @RequiredArgsConstructor
 @Service
 @AllArgsConstructor
-// @NoArgsConstructor
+@NoArgsConstructor
 @WebService(serviceName = "BankWS")
 public class Bankservicesoap {
     private BankAccountserviceImpl bankaccountservice;

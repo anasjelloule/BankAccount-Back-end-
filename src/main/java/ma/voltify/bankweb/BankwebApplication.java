@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import dtos.CustomerDto;
 import enums.AccountStatus;
 import enums.OperationsType;
-import jakarta.xml.ws.Endpoint;
 import ma.voltify.bankweb.entities.AccountOperation;
 import ma.voltify.bankweb.entities.CurrentAccount;
 import ma.voltify.bankweb.entities.Customer;
@@ -24,7 +22,6 @@ import ma.voltify.bankweb.repositories.BankRepository;
 import ma.voltify.bankweb.repositories.CustomerRepository;
 import ma.voltify.bankweb.services.AccountUserService;
 import ma.voltify.bankweb.services.BankAccountserviceImpl;
-import ma.voltify.bankweb.web.RestFuljaxws.BankserviceRestJaxRSApi;
 import ma.voltify.bankweb.web.soap.Bankservicesoap;
 
 @SpringBootApplication

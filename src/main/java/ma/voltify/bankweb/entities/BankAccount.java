@@ -3,9 +3,6 @@ package ma.voltify.bankweb.entities;
 import java.util.Collection;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import enums.AccountStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -1,7 +1,7 @@
 package ma.voltify.bankweb;
 
-import jakarta.xml.ws.Endpoint;
-import ma.voltify.bankweb.web.soap.Bankservicesoap;
+// import jakarta.xml.ws.Endpoint;
+// import ma.voltify.bankweb.web.soap.Bankservicesoap;
 
 public class ImplSoap {
     public static void main(String[] args) {
