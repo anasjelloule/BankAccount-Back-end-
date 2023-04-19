@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 import ma.voltify.bankweb.web.RestFuljaxws.BankserviceRestJaxRSApi;
 
-@Configuration
+// @Configuration
 public class MyConfig {
-    @Bean
+    // @Bean
     public ResourceConfig resourceConfig() {
         ResourceConfig jerseyservlet = new ResourceConfig();
         jerseyservlet.register(BankserviceRestJaxRSApi.class);

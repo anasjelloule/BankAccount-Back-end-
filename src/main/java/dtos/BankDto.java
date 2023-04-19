@@ -3,6 +3,7 @@ package dtos;
 import java.util.Date;
 
 import enums.AccountStatus;
+import jakarta.jws.WebResult;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
