@@ -1,0 +1,39 @@
+type Query {
+  getCustomers: [CustomerDto]
+  getaccounts: [BankDto]
+  getBankAccountDto(id: String): BankDto
+}
+type Mutation {
+  addCustomer(customerdto: CustomerinputDto): CustomerDto
+  removeCustomer(id: Int): Int
+}
+
+type CustomerDto {
+  id: Int
+  name: String!
+  email: String
+}
+input CustomerinputDto {
+  name: String
+  email: String
+}
+
+type BankDto {
+  id: ID
+  createdAt: String
+  balance: Float
+  status: AccountStatus
+  currency: String
+  customer: CustomerDto
+}
+extend type BankDto {
+  interestRate: Float!
+}
+extend type BankDto {
+  overDraft: Float!
+}
+enum AccountStatus {
+  CREATED
+  ACTIVATED
+  SUSPENDED
+}

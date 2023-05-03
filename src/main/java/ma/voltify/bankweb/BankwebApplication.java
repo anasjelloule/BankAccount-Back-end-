@@ -8,8 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.Transactional;
 import dtos.CustomerDto;
+import dtos.testeecord;
 import enums.AccountStatus;
 import enums.OperationsType;
 import jakarta.xml.ws.Endpoint;
@@ -27,7 +29,7 @@ import ma.voltify.bankweb.web.soap.Bankservicesoap;
 
 @SpringBootApplication
 
-// @ComponentScan(basePackages = { "mappers" })
+// @ComponentScan(basePackages = { "exceptions" })
 // @EnableSwagger2
 // @EnableWebMvc
 // @OpenAPIDefinition(info = @Info(title = "Employees API", version = "2.0",
@@ -37,10 +39,11 @@ public class BankwebApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BankwebApplication.class, args);
-
+		// testeecord ts = new testeecord("ANAS", "ANAS@gmail.com");
+		// System.out.println(ts.email());
 	}
 
-	@Bean
+	// @Bean
 	CommandLineRunner commandLineRunner3(Bankservicesoap bankservicesoap) {
 		return args -> {
 			// Endpoint.publish("http://0.0.0.0:8088/", bankservicesoap);

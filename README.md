@@ -1,6 +1,7 @@
 ﻿# BankAccount Back end
 Build Bank Manager online by spring & Jpa Repository Lombok & JEE Architect
 in this project we make an applicati on that communicate with RestAPi and protocole soap
+we impliment Graphql with Spring 
 also make an appliction with roles and authorization also auhotentification
 we impliment the all jpa and spring data jpa methods
 we impliment the all oop concept
